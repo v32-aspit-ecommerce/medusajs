@@ -1,0 +1,36 @@
+name: Build and Push Medusa Admin
+
+on:
+  push:
+    branches:
+      - main # Trigger on pushes to the main branch
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # Fetch all history for .Git based projects
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20' # Use Node.js 16
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build Medusa Admin
+      run: npm run build:admin # Your specific build command
+
+
+    - name: Commit and Push Changes 
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Actions"
+        git add -A
+        git commit -m "Deploy Medusa Admin build" -a || echo "No changes to commit"
+        git push
+        
