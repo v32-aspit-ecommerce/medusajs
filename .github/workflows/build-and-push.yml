@@ -30,7 +30,7 @@ jobs:
       run: |
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Actions"
-        git add -A
+        git add -f build/* # Force add the build directory
         git commit -m "Deploy Medusa Admin build" -a || echo "No changes to commit"
         git push
         
