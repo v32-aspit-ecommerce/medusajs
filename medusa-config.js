@@ -52,6 +52,18 @@ const plugins = [
       },
     },
   },
+  {
+  resolve: "medusa-plugin-sendgrid",
+  options: {
+    api_key: process.env.SENDGRID_API_KEY,
+    from: process.env.SENDGRID_FROM,
+
+    user_password_reset_template: process.env.SENDGRID_USER_PASSWORD_RESET_ID
+    
+  }
+
+
+  }
 ];
 
 const modules = {
