@@ -96,6 +96,13 @@ const projectConfig = {
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
 module.exports = {
+  services: {
+    apikeyService: {
+      create: ({ manager }) => {
+        return new apikeyService({ manager })
+      }
+    }
+  },
   projectConfig,
   plugins,
   modules,
