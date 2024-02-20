@@ -4,23 +4,22 @@ import type {
   MedusaRequest, 
   MedusaResponse,
 } from "@medusajs/medusa"
-import { authenticateApikey } from "src/services/apikey_authentication";
+import { MedusaContainer } from 'medusa-interfaces'
+import ApiKeyMiddleware from '../services/api-key-service';
 
-const storeMiddleware = async (
-  req: MedusaRequest, 
-  res: MedusaResponse, 
-  next: MedusaNextFunction
-) => {
-  // do something
-  await authenticateApikey(req, res, next)
-  // next()
-}
+const apiKeyMiddleware = async (
+  req: MedusaRequest,
+  res: MedusaResponse,
+  next: MedusaNextFunction) => {
+  const apiKeyMiddleware = new ApiKeyMiddleware(MedusaContainer);
+  await apiKeyMiddleware.validateApiKey(req, res, next);
+  }
 
 export const config: MiddlewaresConfig = {
   routes: [
     {
       matcher: "/store/*",
-      middlewares: [storeMiddleware, authenticateApikey],
+      middlewares: [apiKeyMiddleware],
     },
   ],
 }
