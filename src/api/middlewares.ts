@@ -5,6 +5,7 @@ import type {
   MedusaResponse,
 } from "@medusajs/medusa"
 import { MedusaContainer } from 'medusa-interfaces'
+import { MedusaContext } from "@medusajs/utils";
 import ApiKeyMiddleware from '../services/api-key-service';
 
 const apiKeyMiddleware = async (
@@ -12,7 +13,8 @@ const apiKeyMiddleware = async (
   res: MedusaResponse,
   next: MedusaNextFunction) => {
   const apiKeyMiddleware = new ApiKeyMiddleware(MedusaContainer);
-  await apiKeyMiddleware.validateApiKey(req, res, next);
+  const apiKey = req.headers["x-api-key"].toString();
+  await apiKeyMiddleware.validateApiKey(req, res, apiKey);
   }
 
 export const config: MiddlewaresConfig = {
