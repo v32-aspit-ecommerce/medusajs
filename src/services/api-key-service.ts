@@ -19,13 +19,16 @@ class ApiKeyMiddleware extends TransactionBaseService {
         super(container)
         console.log("Constructer loaded")
     }
-    async validateApiKey( req: MedusaRequest, res: MedusaResponse, apiKey) {
+    async validateApiKey( req: MedusaRequest, res: MedusaResponse, next: MedusaNextFunction) {
+        // var apiKey = req.headers["x-api-key"].toString();
+        var apiKey = "wdadswdas"
         console.log("Creating manager")
         const manager: EntityManager = req.scope.resolve("manager");
         const publishableApiKeyRepository = manager.getRepository(PublishableApiKey);
         const apiKeyRecord = await publishableApiKeyRepository.findOne({ where: { id: apiKey } });
         console.log("record found")
         console.log(apiKeyRecord)
+        next();
     }
 }
 export default ApiKeyMiddleware;
