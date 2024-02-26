@@ -11,10 +11,8 @@ const apiKeyMiddleware = async (
   req: MedusaRequest,
   res: MedusaResponse,
   next: MedusaNextFunction) => {
+    try {
     const apiKey = req.headers["x-api-key"].toString();
-    if (!apiKey){
-      return res.status(400).json({ error: "Missing API key in header", missing_field: "x-api-key" });
-    }
     const manager: EntityManager = req.scope.resolve("manager");
     const publishableApiKeyRepository = manager.getRepository(PublishableApiKey);
     const apiKeyRecord = await publishableApiKeyRepository.findOne({ where: { id: apiKey } });
@@ -25,6 +23,12 @@ const apiKeyMiddleware = async (
       return res.status(401).json({ error: "API key has been revoked"})
     }
     next();
+  } catch (error) {
+    if (error instanceof TypeError){
+      return res.status(400).json({ error: "Missing API key in header", missing_field: "x-api-key" });
+    }
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
   }
 
 export const config: MiddlewaresConfig = {
