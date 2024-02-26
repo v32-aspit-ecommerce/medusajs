@@ -1,6 +1,6 @@
 import { BaseEntity } from "@medusajs/medusa";
 import { Column, Entity } from "typeorm";
-
+import 'reflect-metadata'
 @Entity()
 export class OnboardingState extends BaseEntity {
   @Column({ nullable: true })
