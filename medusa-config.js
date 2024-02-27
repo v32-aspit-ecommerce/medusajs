@@ -19,7 +19,7 @@ switch (process.env.NODE_ENV) {
 
 try {
   dotenv.config({ path: process.cwd() + "/" + ENV_FILE_NAME });
-} catch (e) {}
+} catch (e) { }
 
 // CORS when consuming Medusa from admin
 const ADMIN_CORS =
@@ -53,16 +53,12 @@ const plugins = [
     },
   },
   {
-  resolve: "medusa-plugin-sendgrid",
-  options: {
-    api_key: process.env.SENDGRID_API_KEY,
-    from: process.env.SENDGRID_FROM,
-
-    user_password_reset_template: process.env.SENDGRID_USER_PASSWORD_RESET_ID
-    
-  }
-
-
+    resolve: "medusa-plugin-sendgrid",
+    options: {
+      api_key: process.env.SENDGRID_API_KEY,
+      from: process.env.SENDGRID_FROM,
+      user_password_reset_template: process.env.SENDGRID_USER_PASSWORD_RESET_ID
+    }
   }
 ];
 
