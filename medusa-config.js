@@ -83,7 +83,8 @@ const projectConfig = {
   jwtSecret: process.env.JWT_SECRET,
   cookieSecret: process.env.COOKIE_SECRET,
   store_cors: STORE_CORS,
-  database_url: DATABASE_URL,
+  // database_url: DATABASE_URL,
+  database_url: `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@localhost:5432/${process.env.POSTGRES_DB}`,
   database_type: "postgres",
   admin_cors: ADMIN_CORS,
   // Uncomment the following lines to enable REDIS
