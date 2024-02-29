@@ -19,7 +19,7 @@ switch (process.env.NODE_ENV) {
 
 try {
   dotenv.config({ path: process.cwd() + "/" + ENV_FILE_NAME });
-} catch (e) {}
+} catch (e) { }
 
 // CORS when consuming Medusa from admin
 const ADMIN_CORS =
@@ -28,8 +28,7 @@ const ADMIN_CORS =
 // CORS to avoid issues when consuming Medusa from a client
 const STORE_CORS = process.env.STORE_CORS || "http://localhost:8000";
 
-const DATABASE_URL =
-  process.env.DATABASE_URL || "postgres://localhost/medusa-starter-default";
+const DATABASE_URL = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@postgres:5432/${process.env.POSTGRES_DB}` || `${process.env.DATABASE_URL}` || "postgres://localhost/medusa-starter-default";
 
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 
@@ -53,16 +52,12 @@ const plugins = [
     },
   },
   {
-  resolve: "medusa-plugin-sendgrid",
-  options: {
-    api_key: process.env.SENDGRID_API_KEY,
-    from: process.env.SENDGRID_FROM,
-
-    user_password_reset_template: process.env.SENDGRID_USER_PASSWORD_RESET_ID
-    
-  }
-
-
+    resolve: "medusa-plugin-sendgrid",
+    options: {
+      api_key: process.env.SENDGRID_API_KEY,
+      from: process.env.SENDGRID_FROM,
+      user_password_reset_template: process.env.SENDGRID_USER_PASSWORD_RESET_ID
+    }
   }
 ];
 
@@ -90,8 +85,6 @@ const projectConfig = {
   database_url: DATABASE_URL,
   database_type: "postgres",
   admin_cors: ADMIN_CORS,
-  // Uncomment the following lines to enable REDIS
-  // redis_url: REDIS_URL
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
