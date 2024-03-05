@@ -28,7 +28,8 @@ const ADMIN_CORS =
 // CORS to avoid issues when consuming Medusa from a client
 const STORE_CORS = process.env.STORE_CORS || "http://localhost:8000";
 
-const DATABASE_URL = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@postgres:5432/${process.env.POSTGRES_DB}` || `${process.env.DATABASE_URL}` || "postgres://localhost/medusa-starter-default";
+// const DATABASE_URL = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@postgres:5432/${process.env.POSTGRES_DB}` || `${process.env.DATABASE_URL}` || "postgres://localhost/medusa-starter-default";
+const DATABASE_URL = `${process.env.DATABASE_URL}` || "postgres://localhost/medusa-starter-default"
 
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 
