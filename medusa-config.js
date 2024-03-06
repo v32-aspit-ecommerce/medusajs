@@ -40,6 +40,7 @@ const plugins = [
     resolve: `@medusajs/file-local`,
     options: {
       upload_dir: "uploads",
+      backend_url: process.env.HOST || "http://localhost:9000",
     },
   },
   {
@@ -85,7 +86,7 @@ const projectConfig = {
   store_cors: STORE_CORS,
   database_url: DATABASE_URL,
   database_type: "postgres",
-  admin_cors: ADMIN_CORS,
+  admin_cors: ADMIN_CORS
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
