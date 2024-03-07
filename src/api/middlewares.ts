@@ -6,24 +6,8 @@ import {
   PublishableApiKey,
   Logger
 } from "@medusajs/medusa"
-import { log } from "console";
 import { EntityManager } from "typeorm";
 
-// const printReq(req: MedusaRequest) {
-//   const list = []
-//   for (Headers in req.headers) {
-// }
-
-const loggerMiddleware = async(
-  req: MedusaRequest,
-  res: MedusaResponse,
-  next: MedusaNextFunction
-): Promise<void> => {
-  const logger: Logger = req.scope.resolve("logger");
-  // logger.setLogLevel("debug");
-  // logger.debug(`request to ${req.url} with content headers: ${JSON.stringify(req.headers)} and params: ${JSON.stringify(req.params)}`)
-  next()
-}
 
 const apiKeyMiddleware = async (
   req: MedusaRequest,
@@ -59,7 +43,7 @@ export const config: MiddlewaresConfig = {
   routes: [
     {
       matcher: "/store/*",
-      middlewares: [loggerMiddleware, apiKeyMiddleware],
+      middlewares: [apiKeyMiddleware],
     },
   ],
 }
