@@ -1,5 +1,5 @@
 version: "3.8"
-
+# start command: "docker compose build && docker compose up -d"
 services:
   medusajs:
     build:
