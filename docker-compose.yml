@@ -32,7 +32,7 @@ services:
     volumes: 
       - medusa_data:/app/MEDUSAJS
       - node_modules:/app/MEDUSAJS/node_modules
-      - medusa_data:/app/MEDUSAJS/uploads
+      - medusa_uploads:/app/MEDUSAJS/uploads
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:${PORT}/app || exit 1
       interval: 60s
@@ -79,6 +79,7 @@ services:
 volumes:
   medusa_data:
   node_modules:
+  medusa_uploads:
   db:
     driver: local
   redis:
